@@ -1,0 +1,2 @@
+Este projeto consiste em uma solução de análise de vendas orientada por IA, desenvolvida para transformar dados brutos em insights estratégicos capazes de apoiar decisões de negócio com maior precisão e previsibilidade.
+A proposta central é utilizar técnicas de análise de dados, modelagem preditiva para identificar padrões de consumo, prever faturamento, segmentar clientes e detectar oportunidades de crescimento.
