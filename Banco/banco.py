@@ -25,48 +25,48 @@ df.to_sql("Vendas", conn, if_exists="replace", index=False)
 #fetchmany(n) Retorna o Valor que voce escolhe como o LIMIT
 
 # Receita total por Estado
-cursor.execute(""" 
+receitaestado = """ 
 SELECT customer_state, SUM(receita) as total_receita FROM vendas GROUP BY customer_state ORDER BY total_receita DESC
-""")
+"""
 
-receitaestado = cursor.fetchall()
 
 # Top 10 por receita
-cursor.execute(""" 
+top10 = """ 
 SELECT product_category_name, SUM(receita) as receita_cat FROM vendas GROUP BY product_category_name ORDER BY receita_cat DESC
-""")
+"""
 
-top10 = cursor.fetchmany(10)
 
 ## Pedidos por mes/ano
-cursor.execute(""" 
+mesAno = """ 
 SELECT strftime('%Y-%m', order_purchase_timestamp) as mes_ano, COUNT(*) as qtd_pedidos FROM vendas GROUP BY mes_ano
-""")
-
-mesAno = cursor.fetchall()
+"""
 
 #Receita Por Tipo
-cursor.execute(""" 
+ReceitaTipo = """ 
 SELECT payment_type, AVG(receita) as avg_receita FROM vendas GROUP BY payment_type
-""")
-
-ReceitaTipo = cursor.fetchall()
-
+"""
 
 #Pedidos atrasados
-cursor.execute("SELECT COUNT(*) *100.0 / (SELECT COUNT(*) FROM vendas) as pct_atrasados FROM vendas WHERE order_delivered_customer_date > order_estimated_delivery_date")
-
-Atrasados = cursor.fetchall()
+Atrasados ="SELECT COUNT(*) *100.0 / (SELECT COUNT(*) FROM vendas) as pct_atrasados FROM vendas WHERE order_delivered_customer_date > order_estimated_delivery_date"
 
 
-print(" -- RECEITA POR ESTADO --")
-print(receitaestado)
+
+
+
+
+df_receita = pd.read_sql_query(receitaestado, conn)
+df_top10 = pd.read_sql_query(top10, conn)
+df_mesAno= pd.read_sql_query(mesAno, conn)
+df_RecitaTipo = pd.read_sql_query(ReceitaTipo, conn)
+df_Atrasados = pd.read_sql_query(Atrasados, conn)
+
+print("RECEITA POR QUERY NO PANDAS" )
+print(df_receita.head())
 print(" -- TOP 10 --")
-print(top10)
+print(df_top10)
 print(" -- MES / ANO --")
-print(mesAno)
+print(df_mesAno)
 print(" -- RECEITA TIPO --")
-print(ReceitaTipo)
+print(df_RecitaTipo)
 print(" -- ATRASADOS --")
-print(Atrasados)
-
+print(df_Atrasados)
