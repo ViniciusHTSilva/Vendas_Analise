@@ -70,3 +70,13 @@ print(" -- RECEITA TIPO --")
 print(df_RecitaTipo)
 print(" -- ATRASADOS --")
 print(df_Atrasados)
+
+
+# Salvano as pesquisa por Query em um csv ou xlsx
+
+with pd.ExcelWriter("AnaliseFilnal.xlsx") as writer:
+    df_receita.to_excel(writer, sheet_name="Receita", index=False)
+    df_top10.to_excel(writer, sheet_name="Top10", index=False)
+    df_mesAno.to_excel(writer, sheet_name="Mes_Ano", index=False)
+    df_RecitaTipo.to_excel(writer, sheet_name="ReceitaTipo", index=False)
+    df_Atrasados.to_excel(writer, sheet_name="Atrasados", index=False)
