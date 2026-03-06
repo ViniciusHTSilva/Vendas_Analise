@@ -74,7 +74,7 @@ print(df_Atrasados)
 
 # Salvano as pesquisa por Query em um csv ou xlsx
 
-with pd.ExcelWriter("AnaliseFilnal.xlsx") as writer:
+with pd.ExcelWriter("./Dados/AnaliseFilnal.xlsx") as writer:
     df_receita.to_excel(writer, sheet_name="Receita", index=False)
     df_top10.to_excel(writer, sheet_name="Top10", index=False)
     df_mesAno.to_excel(writer, sheet_name="Mes_Ano", index=False)
