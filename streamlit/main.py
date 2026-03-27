@@ -32,27 +32,62 @@ df_Atrasados = df_Atrasados.rename(columns={
 
 
 
+st.set_page_config(layout="wide")
+import streamlit as st
+
+st.set_page_config(layout="wide")
+
+st.markdown("""
+<style>
+.stApp {
+    background: #0f172a;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+
+            
+<h1 style='text-align: center;
+            color:White'>
+            Analise de Vendas
+            </h1>
+
+""",unsafe_allow_html=True
+)
+
+
+col1, col2, col3 = st.columns(3, gap='large')
 
 
 
-st.markdown('''
-Analise de :green[Vendas]
-''')
 
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Receita","Top10","Mes/Ano","Tipo Receita","Atrasados"])
-
-
-with tab1:
+with col1:
 ##  Receita
+    st.markdown("""
+        <div style="
+            background-color: red;
+            border-radius: 10px;
+            border: 1px solid white;
+            width: 110%;
+        ">
+    """, unsafe_allow_html=True)
+
     st.bar_chart(df_Receita.set_index("Estado"))
-with tab2:
+
+    st.markdown("</div>", unsafe_allow_html=True)
+with col2:
 ##  Top10
     st.dataframe(df_Top10, hide_index=True)
-with tab3:
+with col3:
 ##  Mes/Ano
     st.bar_chart(df_Mes_Ano.set_index("Mes / Ano"))
-with tab4:
+
+
+col4, col5 = st.columns(2, gap='large')
+
+with col4:
 ##  Tipo Receita 
     fig = px.pie(
     df_ReceitaTipo,
@@ -61,5 +96,5 @@ with tab4:
     title="Modelo Receita"
     )
     st.plotly_chart(fig)
-with tab5:
+with col5:
     st.dataframe(df_Atrasados, hide_index=True)
